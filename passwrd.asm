@@ -23,16 +23,18 @@ end_of_passwd_check_start:
         xor al, al
         int 21h
 
-; буферы
-enter_passwrd_buf db 254, 255 dup(0), '$'
-
 right_passwrd db 3, 3, 3, 3, 3, 0dh
+
 right_passwrd_len dd $ - right_passwrd
 
 greeting_str db "Hello, enter password.", 0dh, 0ah, '$'
 
 permission_denied_str db "Wrong password, permission denied.", 0dh, 0ah, '$'
 accessed_str db "Accessed.", 0dh,  0ah, '$'
+
+; буферы
+enter_passwrd_buf db 254, 6 dup(0), '$'
+
 
 ;--------------------------------------------------------------------------------
 ; сравнение строк
