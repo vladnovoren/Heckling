@@ -23,7 +23,7 @@ end_of_passwd_check_start:
         xor al, al
         int 21h
 
-right_passwrd db 3, 3, 3, 3, 3, 0dh
+right_passwrd db 5 dup(3), 0dh
 
 right_passwrd_len dd $ - right_passwrd
 
