@@ -5,20 +5,7 @@ org 100h
 
 
 start:
-        call greeting
-        mov dx, offset enter_passwrd_buf
-        call enter_str
-        mov si, offset enter_passwrd_buf
-        add si, 2
-        mov di, offset right_passwrd
-        call cmp_strings
-        cmp ax, 1
-        je permission_denied_start
-        call accessed
-        jmp end_of_passwd_check_start
-permission_denied_start:
-        call permission_denied
-end_of_passwd_check_start:
+        call enter_and_check_password
         mov ah, 4ch
         xor al, al
         int 21h
@@ -70,9 +57,24 @@ cmp_strings endp
 
 ;--------------------------------------------------------------------------------
 ; ввод пароля и проверка
+; destrlist:
+; ax, dx, si, di
 ;--------------------------------------------------------------------------------
 enter_and_check_password proc
         call greeting
+        mov dx, offset enter_passwrd_buf
+        call enter_str
+        mov si, offset enter_passwrd_buf
+        add si, 2
+        mov di, offset right_passwrd
+        call cmp_strings
+        cmp ax, 1
+        je permission_denied_start
+        call accessed
+        jmp end_of_passwd_check_start
+permission_denied_start:
+        call permission_denied
+end_of_passwd_check_start:
         ret
 enter_and_check_password endp
 
